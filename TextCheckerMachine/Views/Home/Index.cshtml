@@ -1,0 +1,106 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@using System.Web.Mvc.Html
+@using TextCheckerMachine.Models
+@model TextCheckerMachine.ViewModels.TextCheckerMachineViewModel
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+{
+   <form method="post">
+        <div class="jumbotron">
+            <h2>Text Checker Machine</h2>
+            <h4>Please provide your text below and select the action to be performed. Press submit to get the results</h4>
+            <div class="row">
+                <div class="col-sm-6">
+                    @Html.TextAreaFor(model => model.Request.Text)
+                </div>
+                <div class="col-sm-6" style="height: 500px; width: 400px; overflow:scroll; max-height:400px; border-color:yellow" >
+                    @if (@Model?.Response != null)
+                    {
+                        if (Model.Request?.ActionToBePerformed == ActionType.Palindromes)
+                        {
+                            <p>
+                                @Html.Label("Result")
+                                @if (@Model.Response.PalindromeList.Count == 0)
+                                {
+                                    <h5>There is no Palindrome in the given text:</h5>
+                                }
+                                else
+                                {
+                            <h5>The number of unique Palindrome(s) in the given text :-  @Model.Response.PalindromeList.Count</h5>
+                            <h5>The Palindrome(s) in the given text:</h5>
+                                }
+                            </p>
+                            <ul>
+                                @foreach (var palindromeItem in Model?.Response?.PalindromeList)
+                                {
+                                    <li>@palindromeItem</li>
+                                }
+
+                            </ul>
+                        }
+                        if (Model.Request?.ActionToBePerformed == ActionType.DuplicateWords)
+                        {
+                            <p>
+                                @Html.Label("Result")
+                                @if (@Model.Response.DuplicateWordList.Count == 0)
+                                {
+                                    <h5>There is no duplicate words in the given text:</h5>
+                                }
+                                else
+                                {
+                                    <h5>The duplicate words and their number of appearances in the given text are:</h5>
+                                }
+                            </p>
+                            <ul>
+                                @foreach (var duplicateWordList in Model?.Response?.DuplicateWordList)
+                                {
+                                    <li>@duplicateWordList.Key exists @duplicateWordList.Value time(s)</li>
+                                }
+
+                            </ul>
+                        }
+                        if (Model.Request?.ActionToBePerformed == ActionType.HtmlValidation)
+                        {
+                            <p>
+                                @Html.Label("Result")
+                                @if (@Model.Response.HtmlValidationResponse.IsValidHtml)
+                                {
+                                    <h5>The text is a valid html</h5>
+                                }
+                                else
+                                {
+                            <h5>The text is not a valid html because - @Model.Response.HtmlValidationResponse.Error</h5>
+                                }
+                            </p>
+                        }
+                    }
+                    </div>
+            </div>
+            <div>
+                <div>
+                    @Html.RadioButtonFor(model => model.Request.ActionToBePerformed, ActionType.Palindromes, new { id = ActionType.Palindromes })
+                    <label for=@ActionType.Palindromes>Counts number of unique @ActionType.Palindromes</label>
+                </div>
+                <div>
+                    @Html.RadioButtonFor(model => model.Request.ActionToBePerformed, ActionType.HtmlValidation, new { id = ActionType.HtmlValidation })
+                    <label for=@ActionType.HtmlValidation>Validate Html</label>
+                </div>
+                <div>
+                    @Html.RadioButtonFor(model => model.Request.ActionToBePerformed, ActionType.DuplicateWords, new { id = ActionType.DuplicateWords })
+                    <label for=@ActionType.DuplicateWords>Counts Duplicate Words</label>
+                </div>
+            </div>
+            <div style="color: red">
+                      @Html.ValidationSummary()  
+            </div>
+            <div style="float: right">
+                <button type="submit" class="button">Submit</button>
+            </div>
+
+        </div>
+        
+    </form>
+}

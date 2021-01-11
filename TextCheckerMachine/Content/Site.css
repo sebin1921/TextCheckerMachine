@@ -1,0 +1,61 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+select,
+textarea {
+    max-width: 900px;
+    height: 400px;
+    width: 450px;
+            
+}
+
+.radiobutton {
+     max-width: 900px;
+    border-color: #999933
+}
+
+textarea {
+    padding: 10px;
+    line-height: 1.5;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #cbc;
+    box-shadow: 1px 1px 1px #999933;
+    max-width: 900px;
+}
+
+label {
+    margin-bottom: 10px;
+}
+
+.button {
+    display: inline-block;
+    padding: 0.35em 1.2em;
+    border: 0.1em solid #FFFFFF;
+    color: blue;
+    text-align: center;
+    transition: all 0.2s;
+    background-color: khaki;
+    border-radius: 5px;
+}
+
+.button:hover {
+    color: #000000;
+    background-color: #FFFFFF;
+}
